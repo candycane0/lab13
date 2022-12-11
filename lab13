@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.*; 
+import java.io.*; 
+public class lab13 
+{
+    public ArrayList<Integer> intArrList = new ArrayList<>(); 
+    public void readData(String fileName) 
+    {
+        
+        try {
+            java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(fileName)));
+            String inn = input.readLine();
+            intArrList.add(Integer.valueOf(inn));
+                
+                while( (inn = input.readLine()) != null )
+                {
+                        intArrList.add(Integer.valueOf(inn));
+                }
+                input.close();
+
+            
+        }
+        catch(Exception e) 
+        {
+            System.out.println(e.toString());
+        }
+    }
+
+    public long getTotalCount() 
+    {
+        return intArrList.stream().count();
+    }
+
+
+    public long getOddCount() 
+    {
+        
+        return intArrList.stream().filter(x -> x % 2 != 0).count(); 
+    }
+
+
+    public long getEvenCount() 
+    {
+        return intArrList.stream().filter(x -> x % 2 == 0).count(); 
+    }
+
+
+    public long getDistinctGreaterThanFiveCount()
+    {
+        return intArrList.stream().filter(x -> x > 5).distinct().count(); 
+    } 
+
+    public Integer[] getResult1() 
+    {
+        Integer[] intArr = intArrList.stream().filter(x -> x > 5).filter(x -> x < 50).filter(x -> x % 2 == 0).sorted().toArray(Integer[]::new);
+        return intArr; 
+    }
+
+    public Integer[] getResult2() 
+    {
+        Integer[] intArr = intArrList.stream().map(x -> (x * x) * 3).limit(50).toArray(Integer[]::new); 
+        return intArr; 
+    }
+
+    public Integer[] getResult3() 
+    {
+        Integer[] intArr = intArrList.stream().filter(x -> x % 2 == 1).map(x -> (x * 2)).sorted().skip(20).distinct().toArray(Integer[]::new); 
+        return intArr; 
+    }
+}
+
